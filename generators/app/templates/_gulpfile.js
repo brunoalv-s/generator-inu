@@ -6,7 +6,7 @@ var	pug 			= require('gulp-pug');
 	sourcemaps 		= require('gulp-sourcemaps'),
 	browserSync		= require('browser-sync').create(),
 	autoprefixer	= require('gulp-autoprefixer');
- 
+
 gulp.task('styles', function() {
 
 	setTimeout(function() {
@@ -51,8 +51,10 @@ gulp.task('views', function buildHTML() {
 gulp.task('dev', function() {
 
 	browserSync.init({
-		proxy: "localhost/<% name %>",
-		open: false
+		open: false,
+		server: {
+			baseDir: 'dist'
+		}
 	});
 
 	gulp.watch('src/scss/*.scss', ['styles']);
@@ -62,3 +64,6 @@ gulp.task('dev', function() {
 });
 
 gulp.task('build', ['styles', 'scripts', 'views']);
+
+// Tarefa padrão para desenvolvimento.
+gulp.task('default', ['build', 'dev'])
